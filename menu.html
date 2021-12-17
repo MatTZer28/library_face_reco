@@ -6,17 +6,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="menu_style_sheet.css">
-    <title>人臉辨識圖書借閱系統</title>
+    <title>精忠國小人臉辨識圖書借閱系統</title>
 </head>
 
 <body>
     <div class="wrapper">
         <div class="detection_sight"></div>
-        <div class="control_panel"></div>
+        <div class="control_panel">
+            <div class="info">
+                <div class="info_container">
+                    <div class="student_image_container">
+                        <img src="src\pic\user.png" alt="學生照片" id="student_face">
+                    </div>
+                    <div class="student_info_container">
+                        <span class="student_label">姓名</span>
+                        <input type="text" class="student_info" name="student_name" value="" disabled>
+                        <span class="student_label">學號</span>
+                        <input type="text" class="student_info" name="student_id" value="" disabled>
+                    </div>
+                </div>
+                <div class="info_button_container">
+                        <button type="button" class="check_button"></button>
+                        <button type="button" class="clear_button">清除</button>
+                </div>
+            </div>
+            <div class="setting"></div>
+        </div>
     </div>
     <div class="footer_info">
         <img id="ncyu_logo" src="src\pic\NCYU_MIS.gif" alt="NCYU_LOGO">
-        <span id="footer_text">人臉辨識圖書借閱系統</span>
+        <span id="footer_text">精忠國小人臉辨識圖書借閱系統</span>
     </div>
 </body>
 
