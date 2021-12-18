@@ -24,9 +24,13 @@ div.wrapper {
     margin: 10px;
 }
 
-div.detection_sight {
+#detection_sight_container {
     width: 1150px;
     height: 750px;
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
     margin-right: 50px;
     border-radius: 10px;
     background-color: rgb(180, 180, 180);
