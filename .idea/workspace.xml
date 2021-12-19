@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="95e50786-772a-43f7-b9fc-acab30b21ffe" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/dlib_model/dlib_face_recognition_resnet_model_v1.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dlib_model/shape_predictor_5_face_landmarks.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dlib_model/shape_predictor_68_face_landmarks.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/library_face_reco.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/library_face_reco.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/menu.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/menu_style_sheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/menu_style_sheet.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
