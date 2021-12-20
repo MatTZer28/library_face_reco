@@ -13,7 +13,9 @@ def face_frame(cam):
 
     cropped_frame = crop_frame_with_only_face(frame, face)
 
-    return cropped_frame
+    resized_frame = resize(cropped_frame)
+
+    return resized_frame
 
 
 def detect_faces(cam):
@@ -56,3 +58,13 @@ def pick_one_from_faces(faces):
 def crop_frame_with_only_face(frame, face):
     cropped_frame = frame[face.top():face.bottom(), face.left():face.right()]
     return cropped_frame
+
+
+def resize(frame):
+    size = frame.shape
+    if size[0] > 700:
+        h = size[0] / 3
+        w = size[1] / 3
+        return cv2.resize(frame, (int(w), int(h)), interpolation=cv2.INTER_CUBIC)
+    else:
+        return frame
