@@ -1,4 +1,5 @@
-import dlib
+from pram import DETECTOR
+
 import cv2
 import numpy as np
 
@@ -6,12 +7,12 @@ import numpy as np
 def face_frame(cam):
     frame, faces = detect_faces(cam)
 
-    while no_faces_detected(faces):
+    while no_faces_detected(faces):  # 沒有偵測到人臉
         frame, faces = detect_faces(cam)
 
-    face = pick_one_from_faces(faces)
+    largest_face = pick_largest_face(faces)
 
-    cropped_frame = crop_frame_with_only_face(frame, face)
+    cropped_frame = crop_frame_with_only_face(frame, largest_face)
 
     resized_frame = resize(cropped_frame)
 
@@ -19,17 +20,10 @@ def face_frame(cam):
 
 
 def detect_faces(cam):
-    detector = face_detector()
-
     frame = webcam_frame(cam)
-    frame_gray = cvt_gray(frame)
 
-    faces_coordinate = detector(frame_gray, 0)
+    faces_coordinate = DETECTOR(frame, 0)
     return frame, faces_coordinate
-
-
-def face_detector():
-    return dlib.get_frontal_face_detector()
 
 
 def webcam_frame(cam):
@@ -40,10 +34,6 @@ def webcam_frame(cam):
     return np.array([0, 0, 0]).reshape([3, 1, 1])
 
 
-def cvt_gray(frame):
-    return cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-
 def no_faces_detected(faces):
     if faces:
         return False
@@ -51,8 +41,20 @@ def no_faces_detected(faces):
         return True
 
 
-def pick_one_from_faces(faces):
-    return faces[0]
+def pick_largest_face(faces):
+    if len(faces) == 1:
+        return faces[0]
+
+    face_areas = [(rect.right() - rect.left()) * (rect.bottom() - rect.top()) for rect in faces]
+
+    largest_area = face_areas[0]
+    largest_index = 0
+    for index in range(1, len(faces)):
+        if face_areas[index] > largest_area:
+            largest_index = index
+            largest_area = face_areas[index]
+
+    return faces[largest_index]
 
 
 def crop_frame_with_only_face(frame, face):

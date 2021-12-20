@@ -1,15 +1,19 @@
-import os
+from selenium.webdriver.common.by import By
+
+import csv_data
+import webcam
+from pram import DEFAULT_THRESHOLD, LOGIN_URL, LOGIN_SUCCESSFUL_URL, MENU_URL, CAMERA_ID
+from recognize import face_recognized
 
 from selenium import webdriver
-from selenium.common.exceptions import TimeoutException, NoSuchWindowException
+from selenium.common.exceptions import TimeoutException, NoSuchWindowException, WebDriverException
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 
-LOGIN_URL = 'https://one.cy.edu.tw/web-sso/rest/Redirect/login/page/normal?returnUrl=https://one.cy.edu.tw/WebAuth.do'
-LOGIN_SUCCESSFUL_URL = 'https://one.cy.edu.tw/web-module_list/rest/service/main'
-MENU_URL = 'file://' + os.path.abspath('web/menu.html')
+threshold = DEFAULT_THRESHOLD
+data = csv_data.Data()
 
 
 def driver_options():
@@ -52,13 +56,27 @@ def login_session(driver):
                 login_session(driver)
     except TimeoutException:
         login_session(driver)
-    except NoSuchWindowException:
+    except (NoSuchWindowException, WebDriverException):
         exit()
+
+
+def start_face_recognition_process(driver):
+    cam = webcam.opened_webcam(CAMERA_ID)
+
+    ans = face_recognized(cam, data, threshold)
+
+    if not ans.empty:
+        driver.execute_script(f'document.getElementsByName("student_name")[0].value = "{ans.iloc[0, 0]}";')
+        driver.execute_script(f'document.getElementsByName("student_id")[0].value = "{ans.iloc[0, 1]}";')
+    else:
+        driver.execute_script(f'document.getElementsByName("student_name")[0].value = "無資料";')
+        driver.execute_script(f'document.getElementsByName("student_id")[0].value = "無資料";')
 
 
 def wait_until_page_loaded(wait, url):
     try:
-        wait.until(ec.url_to_be(url))
+        if wait.until(ec.url_matches(url)):
+            return
     except TimeoutException:
         wait_until_page_loaded(wait, url)
 
@@ -67,19 +85,23 @@ def menu_session(driver):
     try:
         wait = WebDriverWait(driver, 1)
         wait_until_page_loaded(wait, MENU_URL)
+
+        start_face_recognition_process(driver)
+
         if wait.until(ec.url_changes(MENU_URL)):
             return
     except TimeoutException:
         menu_session(driver)
-    except NoSuchWindowException:
+    except (NoSuchWindowException, WebDriverException) as e:
+        print(e)
         exit()
 
 
 def main():
     driver = create_web_driver()
 
-    driver.get(LOGIN_URL)
-    login_session(driver)
+    # driver.get(LOGIN_URL)
+    # login_session(driver)
 
     driver.get(MENU_URL)
     menu_session(driver)
