@@ -6,12 +6,12 @@ from capture import face_frame
 from head_pose import head_pose_not_correct
 
 
-def face_recognized(cam, data: csv_data.Data, threshold):
+def face_recognized(driver, data: csv_data.Data, threshold):
 
-    face = face_frame(cam)
+    face = face_frame(driver)
 
     while head_pose_not_correct(face):  # 頭沒有擺正
-        face = face_frame(cam)
+        face = face_frame(driver)
 
     recog_face = [face]
 
@@ -22,9 +22,7 @@ def face_recognized(cam, data: csv_data.Data, threshold):
 
             euclidean_distance = calculate.euclidean_distance(data_feature, curr_feature)
 
-            if euclidean_distance < 0.3:
-                return data.content.iloc[[i]]
-            elif 1 - float(threshold / 100) > euclidean_distance > 0.3:
+            if euclidean_distance < float(threshold / 100):
                 return data.content.iloc[[i]]
             else:
                 return pd.DataFrame()

@@ -1,14 +1,14 @@
+import webcam
 from pram import DETECTOR
 
 import cv2
-import numpy as np
 
 
-def face_frame(cam):
-    frame, faces = detect_faces(cam)
+def face_frame(driver):
+    frame, faces = detect_faces(driver)
 
     while no_faces_detected(faces):  # 沒有偵測到人臉
-        frame, faces = detect_faces(cam)
+        frame, faces = detect_faces(driver)
 
     largest_face = pick_largest_face(faces)
 
@@ -19,19 +19,10 @@ def face_frame(cam):
     return resized_frame
 
 
-def detect_faces(cam):
-    frame = webcam_frame(cam)
-
+def detect_faces(driver):
+    frame = webcam.read_frame(driver)
     faces_coordinate = DETECTOR(frame, 0)
     return frame, faces_coordinate
-
-
-def webcam_frame(cam):
-    if cam.isOpened():
-        frame_ready, frame = cam.read()
-        if frame_ready:
-            return frame
-    return np.array([0, 0, 0]).reshape([3, 1, 1])
 
 
 def no_faces_detected(faces):

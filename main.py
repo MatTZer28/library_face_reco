@@ -1,7 +1,4 @@
-from selenium.webdriver.common.by import By
-
 import csv_data
-import webcam
 from pram import DEFAULT_THRESHOLD, LOGIN_URL, LOGIN_SUCCESSFUL_URL, MENU_URL, CAMERA_ID
 from recognize import face_recognized
 
@@ -60,17 +57,29 @@ def login_session(driver):
         exit()
 
 
-def start_face_recognition_process(driver):
-    cam = webcam.opened_webcam(CAMERA_ID)
+def show_result_student_name(driver, stu_name):
+    driver.execute_script(f'document.getElementsByName("student_name")[0].value = "{stu_name}";')
 
-    ans = face_recognized(cam, data, threshold)
 
-    if not ans.empty:
-        driver.execute_script(f'document.getElementsByName("student_name")[0].value = "{ans.iloc[0, 0]}";')
-        driver.execute_script(f'document.getElementsByName("student_id")[0].value = "{ans.iloc[0, 1]}";')
+def show_result_student_id(driver, stu_id):
+    driver.execute_script(f'document.getElementsByName("student_id")[0].value = "{stu_id}";')
+
+
+def show_result(driver, result):
+    if not result.empty:
+        stu_name = result.iloc[0, 0]
+        show_result_student_name(driver, stu_name)
+        stu_id = result.iloc[0, 1]
+        show_result_student_id(driver, stu_id)
     else:
-        driver.execute_script(f'document.getElementsByName("student_name")[0].value = "無資料";')
-        driver.execute_script(f'document.getElementsByName("student_id")[0].value = "無資料";')
+        show_result_student_name(driver, '無資料')
+        show_result_student_id(driver, '無資料')
+
+
+def start_face_recognition_process(driver):
+    result = face_recognized(driver, data, threshold)
+
+    show_result(driver, result)
 
 
 def wait_until_page_loaded(wait, url):
@@ -92,8 +101,7 @@ def menu_session(driver):
             return
     except TimeoutException:
         menu_session(driver)
-    except (NoSuchWindowException, WebDriverException) as e:
-        print(e)
+    except (NoSuchWindowException, WebDriverException):
         exit()
 
 
