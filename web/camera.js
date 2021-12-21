@@ -50,8 +50,6 @@ const init = () => {
     const width = detectSightContainer.clientWidth - 1 - 50;
     const height = detectSightContainer.clientHeight - 1 - 50;
 
-    console.log(width, height);
-
     const video = createVideo("vid", width, height);
     const canvas = createCanvas("canvas", video.width, video.height);
 

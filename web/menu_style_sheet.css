@@ -101,6 +101,7 @@ input.student_info {
     border-style: inset;
     border-radius: 5px;
     font-size: large;
+    font-weight: bold;
     padding-left: 5px;
     background-color: rgb(230, 230, 230);
 }
