@@ -12,8 +12,6 @@ MENU_URL = 'file:///' + menu_html_path
 
 DATA_PATH = 'data/student_info.csv'
 
-CAMERA_ID = 0
-
 DETECTOR = dlib.get_frontal_face_detector()
 
 PREDICTOR = dlib.shape_predictor('dlib_model/shape_predictor_68_face_landmarks.dat')

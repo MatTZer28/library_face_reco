@@ -1,5 +1,5 @@
 import csv_data
-from pram import DEFAULT_THRESHOLD, LOGIN_URL, LOGIN_SUCCESSFUL_URL, MENU_URL, CAMERA_ID
+from pram import DEFAULT_THRESHOLD, LOGIN_URL, LOGIN_SUCCESSFUL_URL, MENU_URL
 from recognize import face_recognized
 
 from selenium import webdriver
