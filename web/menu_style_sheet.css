@@ -56,7 +56,7 @@ div.info {
 
 div.info_container {
     width: 375px;
-    height: 200px;
+    height: 210px;
     display: flex;
     margin-top: 10px;
     align-self: center;
@@ -106,6 +106,24 @@ input.student_info {
     background-color: rgb(230, 230, 230);
 }
 
+div.progress_indicator {
+    width: 370px;
+    height: 190px;
+    margin: 10px;
+    font-size: 3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+@keyframes breath {
+    0%      {opacity: 100%;}
+    50%     {opacity: 30%;}
+    100%    {opacity: 100%;}
+}
+
 div.info_button_container {
     display: inline-flex;
     justify-content: center;
@@ -121,13 +139,23 @@ button.check_button {
     transition-duration: 0.5s;
     background-color: rgb(100, 100, 100);
     margin: 5px;
+    font-size: xx-large;
+    font-weight: bold;
+    color: rgb(220, 220, 220);
 }
 
 button.check_button:hover {
-    background-color: rgb(220, 220, 220);
+    background-color: rgb(0, 163, 8);
     cursor: pointer;
     color: white;
 }
+
+button.check_button:disabled {
+    background-color: rgb(220, 220, 220);
+    cursor: default;
+    color: white;
+}
+
 
 button.clear_button {
     width: 15%;
@@ -135,7 +163,7 @@ button.clear_button {
     border: 0px;
     border-radius: 5px;
     transition-duration: 0.5s;
-    background-color: rgb(190, 0, 0);
+    background-color: rgb(100, 100, 100);
     margin: 5px;
     font-size: large;
     font-weight: bold;
@@ -143,9 +171,15 @@ button.clear_button {
 }
 
 button.clear_button:hover {
-    background-color: rgb(220, 220, 220);
+    background-color: rgb(182, 47, 47);
     cursor: pointer;
-    color: rgb(100, 100, 100);
+    color: rgb(220, 220, 220);
+}
+
+button.clear_button:disabled {
+    background-color: rgb(220, 220, 220);
+    cursor: default;
+    color: white;
 }
 
 div.setting {

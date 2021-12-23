@@ -44,7 +44,7 @@ def create_web_driver():
 
 def login_session(driver):
     try:
-        wait = WebDriverWait(driver, 1)
+        wait = WebDriverWait(driver, 300)
         if wait.until(ec.url_changes(LOGIN_URL)):
             if driver.current_url == LOGIN_SUCCESSFUL_URL:
                 return
@@ -65,15 +65,64 @@ def show_result_student_id(driver, stu_id):
     driver.execute_script(f'document.getElementsByName("student_id")[0].value = "{stu_id}";')
 
 
+# def show_student_image(driver, stu_img):
+
+
+def show_result_has_match_message(driver):
+    driver.execute_script('progressIndicator = document.getElementsByClassName("progress_indicator")[0];'
+                          'progressIndicator.innerHTML = "辨識成功";'
+                          'progressIndicator.style.animation = "none";')
+
+
+def show_result_no_match_message(driver):
+    driver.execute_script('progressIndicator = document.getElementsByClassName("progress_indicator")[0];'
+                          'progressIndicator.innerHTML = "無資料<br />'
+                          '<span style=\\"font-size: xx-large;\\">建議建立個人辨識資料</span>";'
+                          'progressIndicator.style.animation = "none";')
+
+
+def enable_check_button(driver, has_match):
+    if has_match:
+        driver.execute_script('checkButton = document.getElementsByClassName("check_button")[0];'
+                              'checkButton.innerHTML = "確認資料，進行借閱";'
+                              'checkButton.disabled = false;')
+    else:
+        driver.execute_script('checkButton = document.getElementsByClassName("check_button")[0];'
+                              'checkButton.innerHTML = "建立個人辨識資料";'
+                              'checkButton.disabled = false;')
+
+
+def enable_clear_button(driver):
+    driver.execute_script('clearButton = document.getElementsByClassName("clear_button")[0];'
+                          'clearButton.disabled = false;')
+
+
 def show_result(driver, result):
     if not result.empty:
         stu_name = result.iloc[0, 0]
         show_result_student_name(driver, stu_name)
+
         stu_id = result.iloc[0, 1]
         show_result_student_id(driver, stu_id)
+
+        stu_img = result.iloc[0, 3]
+        # show_student_image(driver, stu_img)
+
+        show_result_has_match_message(driver)
+
+        enable_check_button(driver, True)
+
+        enable_clear_button(driver)
+
     else:
         show_result_student_name(driver, '無資料')
         show_result_student_id(driver, '無資料')
+
+        show_result_no_match_message(driver)
+
+        enable_check_button(driver, False)
+
+        enable_clear_button(driver)
 
 
 def start_face_recognition_process(driver):
@@ -92,7 +141,7 @@ def wait_until_page_loaded(wait, url):
 
 def menu_session(driver):
     try:
-        wait = WebDriverWait(driver, 1)
+        wait = WebDriverWait(driver, 300)
         wait_until_page_loaded(wait, MENU_URL)
 
         start_face_recognition_process(driver)
@@ -101,7 +150,8 @@ def menu_session(driver):
             return
     except TimeoutException:
         menu_session(driver)
-    except (NoSuchWindowException, WebDriverException):
+    except (NoSuchWindowException, WebDriverException) as e:
+        print(e)
         exit()
 
 

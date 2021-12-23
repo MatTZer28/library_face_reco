@@ -11,7 +11,7 @@ def head_pose_not_correct(face_frame):
 
     pitch, yaw, roll = detect_head_pose(face_frame)
 
-    if (170 <= pitch <= 179) or (-179 <= pitch <= -170):
+    if (165 <= pitch <= 179) or (-179 <= pitch <= -165):
         if -10 <= yaw <= 10:
             if -10 <= roll <= 10:
                 return False

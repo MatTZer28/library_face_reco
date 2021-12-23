@@ -7,11 +7,25 @@ from head_pose import head_pose_not_correct
 
 
 def face_recognized(driver, data: csv_data.Data, threshold):
+    fail_count = 0
 
-    face = face_frame(driver)
+    face, is_face_gone = face_frame(driver)
+
+    show_face_detected_message(driver)
 
     while head_pose_not_correct(face):  # 頭沒有擺正
-        face = face_frame(driver)
+
+        fail_count = fail_count + 1
+        if fail_count == 5:
+            show_head_pose_not_correct_message(driver)
+
+        face, is_face_gone = face_frame(driver)
+
+        if is_face_gone:
+            fail_count = 0
+            show_face_detected_message(driver)
+
+    show_recognizing_message(driver)
 
     recog_face = [face]
 
@@ -28,3 +42,21 @@ def face_recognized(driver, data: csv_data.Data, threshold):
                 return pd.DataFrame()
     else:
         return pd.DataFrame()
+
+
+def show_face_detected_message(driver):
+    driver.execute_script('progressIndicator = document.getElementsByClassName("progress_indicator")[0];'
+                          'progressIndicator.innerHTML = "發現人臉<br />請正臉面向鏡頭";'
+                          'progressIndicator.style.animation = "none";')
+
+
+def show_head_pose_not_correct_message(driver):
+    driver.execute_script('progressIndicator = document.getElementsByClassName("progress_indicator")[0];'
+                          'progressIndicator.innerHTML = "臉未擺正<br />請正臉面向鏡頭";'
+                          'progressIndicator.style.animation = "none";')
+
+
+def show_recognizing_message(driver):
+    driver.execute_script('progressIndicator = document.getElementsByClassName("progress_indicator")[0];'
+                          'progressIndicator.innerHTML = "辨識中，請稍後";'
+                          'progressIndicator.style.animation = "breath 3s infinite";')

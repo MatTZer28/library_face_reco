@@ -6,10 +6,10 @@ from head_pose import head_pose_not_correct
 
 def face_training(driver, data: csv_data.Data):
 
-    face = face_frame(driver)
+    face, is_face_gone = face_frame(driver)
 
     while head_pose_not_correct(face):  # 頭沒有擺正
-        face = face_frame(driver)
+        face, is_face_gone = face_frame(driver)
 
     train_faces = [face_frame(driver) for i in range(5)]
 

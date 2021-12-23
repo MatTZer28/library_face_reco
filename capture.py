@@ -5,9 +5,15 @@ import cv2
 
 
 def face_frame(driver):
+    is_face_gone = False
+
     frame, faces = detect_faces(driver)
 
     while no_faces_detected(faces):  # 沒有偵測到人臉
+        show_no_faces_message(driver)
+
+        is_face_gone = True
+
         frame, faces = detect_faces(driver)
 
     largest_face = pick_largest_face(faces)
@@ -16,7 +22,7 @@ def face_frame(driver):
 
     resized_frame = resize(cropped_frame)
 
-    return resized_frame
+    return resized_frame, is_face_gone
 
 
 def detect_faces(driver):
@@ -30,6 +36,12 @@ def no_faces_detected(faces):
         return False
     else:
         return True
+
+
+def show_no_faces_message(driver):
+    driver.execute_script('progressIndicator = document.getElementsByClassName("progress_indicator")[0];'
+                          'progressIndicator.innerText = "尚未偵測到人臉";'
+                          'progressIndicator.style.animation = "breath 3s infinite";')
 
 
 def pick_largest_face(faces):
