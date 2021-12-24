@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="menu_style_sheet.css">
     <script src="camera.js" defer></script>
+    <script src="check_button_click.js" defer></script>
     <title>精忠國小人臉辨識圖書借閱系統</title>
 </head>
 
@@ -22,14 +23,14 @@
                     <div class="student_info_container">
                         <span class="student_label">姓名</span>
                         <input type="text" class="student_info" name="student_name" value="" disabled>
-                        <span class="student_label">學號</span>
+                        <span class="student_label">證號</span>
                         <input type="text" class="student_info" name="student_id" value="" disabled>
                     </div>
                 </div>
                 <div class="progress_indicator">辨識系統準備中</div>
                 <div class="info_button_container">
-                        <button type="button" class="check_button" disabled>請完成辨識程序</button>
-                        <button type="button" class="clear_button" disabled>清除</button>
+                        <button type="button" class="check_button" onclick="check_button_clicked()" disabled>請完成辨識程序</button>
+                        <button type="button" class="clear_button" onclick="clear_button_clicked()" disabled>清除</button>
                 </div>
             </div>
             <div class="setting"></div>

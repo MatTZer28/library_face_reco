@@ -106,6 +106,20 @@ input.student_info {
     background-color: rgb(230, 230, 230);
 }
 
+input.bad_input::placeholder {
+    color: rgb(182, 47, 47);
+}
+
+input.vibrate_animation {
+    animation: vibrate 1s;
+}
+
+@keyframes vibrate {
+    0%, 100% {transform: translateX(0);}
+    10%, 30%, 50%, 70%, 90% {transform: translateX(-6px);}
+    20%, 40%, 60%, 80% {transform: translateX(6px);}
+}
+
 div.progress_indicator {
     width: 370px;
     height: 190px;

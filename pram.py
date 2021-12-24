@@ -10,7 +10,7 @@ menu_html_path = os.path.abspath('web/menu.html').replace('\\', '/')
 
 MENU_URL = 'file:///' + menu_html_path
 
-DATA_PATH = 'data/student_info.csv'
+DATA_PATH = 'data/student_info.pkl'
 
 DETECTOR = dlib.get_frontal_face_detector()
 
@@ -20,4 +20,6 @@ RECOGNITION = dlib.face_recognition_model_v1('dlib_model/dlib_face_recognition_r
 
 POINTS_NUM_LANDMARK = 68
 
-DEFAULT_THRESHOLD = 30
+DEFAULT_THRESHOLD = 70
+
+IMAGE_CACHE_PATH = 'web/cache/'
