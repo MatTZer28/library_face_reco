@@ -2,7 +2,6 @@ let checkButtonClicked = false
 let clearButtonClicked = false
 
 const check_button_clicked = () => {
-    console.log("check_button_clicked")
     checkButtonClicked = true
 }
 

@@ -33,8 +33,6 @@ def train_face(driver, data: pickle_data.Data):
 
     middle_face = train_faces[2]
 
-    print(type(middle_face), middle_face)
-
     data.add_new_member(student_id(driver), student_name(driver), middle_face, feature)
 
     return middle_face

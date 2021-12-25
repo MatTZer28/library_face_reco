@@ -1,5 +1,8 @@
+import pickle
+
 import pickle_data
-from pram import DEFAULT_THRESHOLD, LOGIN_URL, LOGIN_SUCCESSFUL_URL, MENU_URL, IMAGE_CACHE_PATH
+from pram import DEFAULT_THRESHOLD, LOGIN_URL, LOGIN_SUCCESSFUL_URL, MENU_URL, IMAGE_CACHE_PATH, LIBRARY_URL, \
+    COOKIE_PATH
 from recognize import face_recognized
 from train import train_face
 
@@ -10,17 +13,20 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver import Keys
+from selenium.webdriver.common.by import By
 
 threshold = DEFAULT_THRESHOLD
 
 data = pickle_data.Data()
 
 
-def driver_options():
+def driver_options(detach):
     options = webdriver.ChromeOptions()
 
-    options.add_experimental_option("detach", True)
-    # 使瀏覽器不會自動關閉(僅測試用)
+    if detach:
+        options.add_experimental_option("detach", True)
+        # 使瀏覽器不會自動關閉
 
     options.add_experimental_option("excludeSwitches", ['enable-automation'])
     # 不顯示上方'Chrome正受到自動測試軟體控制'提示
@@ -30,14 +36,15 @@ def driver_options():
     # 關閉Chrome詢問是否儲存密碼選項
 
     options.add_argument("--use-fake-ui-for-media-stream")
+    # 排除跳出視訊鏡頭權限要求
 
     return options
 
 
-def create_web_driver():
+def create_web_driver(detach=False):
     service = Service(ChromeDriverManager().install())
 
-    options = driver_options()
+    options = driver_options(detach)
 
     driver = webdriver.Chrome(service=service, options=options)
     driver.maximize_window()
@@ -50,6 +57,7 @@ def login_session(driver):
         wait = WebDriverWait(driver, 30)
         if wait.until(ec.url_changes(LOGIN_URL)):
             if driver.current_url == LOGIN_SUCCESSFUL_URL:
+                pickle.dump(driver.get_cookies(), open(COOKIE_PATH, "wb"))
                 return
             else:
                 driver.get(LOGIN_URL)
@@ -161,17 +169,20 @@ def face_recognition_process(driver):
 
 
 def check_if_button_clicked(driver):
-    check_button_clicked = driver.execute_script('return checkButtonClicked;')
-    clear_button_clicked = driver.execute_script('return clearButtonClicked;')
+    if driver.current_window_handle == driver.window_handles[0]:
+        check_button_clicked = driver.execute_script('return checkButtonClicked;')
+        clear_button_clicked = driver.execute_script('return clearButtonClicked;')
 
-    if check_button_clicked is True or clear_button_clicked is True:
-        if check_button_clicked:
-            driver.execute_script('checkButtonClicked = false;')
-            return True, 'check_button'
+        if check_button_clicked is True or clear_button_clicked is True:
+            if check_button_clicked:
+                driver.execute_script('checkButtonClicked = false;')
+                return True, 'check_button'
 
-        if clear_button_clicked:
-            driver.execute_script('clearButtonClicked = false;')
-            return True, 'clear_button'
+            if clear_button_clicked:
+                driver.execute_script('clearButtonClicked = false;')
+                return True, 'clear_button'
+        else:
+            return False, 'none'
     else:
         return False, 'none'
 
@@ -230,10 +241,44 @@ def face_train_process(driver):
     enable_button(driver, True)
 
 
-def book_borrow_process(driver):
+def current_student_id(driver):
+    return driver.execute_script('studentIdInput = document.getElementsByName("student_id")[0];'
+                                 'return studentIdInput.value')
+
+
+def open_and_switch_to_new_tab(driver):
     driver.execute_script("window.open()")
     driver.switch_to.window(driver.window_handles[1])
-    driver.get('https://one.cy.edu.tw/web-module_list/rest/service/main#')
+
+
+def library_webpage_automation(stu_id):
+    driver = create_web_driver(detach=True)
+
+    cookies = pickle.load(open(COOKIE_PATH, "rb"))
+
+    driver.get(LIBRARY_URL)
+
+    for cookie in cookies:
+        driver.add_cookie(cookie)
+
+    wait = WebDriverWait(driver, 300)
+
+    element = wait.until(ec.presence_of_element_located((By.XPATH, "//*[@id=\"modarea\"]/div[3]/a/div")))
+    element.click()
+
+    element = wait.until(ec.presence_of_element_located((By.LINK_TEXT, "流通管理")))
+    element.click()
+
+    element = driver.find_element(By.LINK_TEXT, "借閱流通")
+    element.click()
+
+    element = wait.until(ec.presence_of_element_located((By.ID, "card_no")))
+    element.send_keys(stu_id)
+    element.send_keys(Keys.RETURN)
+
+
+def book_borrow_process(stu_id):
+    library_webpage_automation(stu_id)
 
 
 def clear_result_student_image(driver):
@@ -248,6 +293,12 @@ def clear_result_student_name(driver):
                           'studentNameInput.placeholder = "";')
 
 
+def show_default_message(driver):
+    driver.execute_script('progressIndicator = document.getElementsByClassName("progress_indicator")[0];'
+                          'progressIndicator.innerHTML = "辨識系統準備中";'
+                          'progressIndicator.style.animation = "none";')
+
+
 def clear_result_student_id(driver):
     driver.execute_script('studentIdInput = document.getElementsByName("student_id")[0];'
                           'studentIdInput.disabled = true;'
@@ -260,6 +311,7 @@ def clear_result(driver):
     clear_result_student_image(driver)
     clear_result_student_name(driver)
     clear_result_student_id(driver)
+    show_default_message(driver)
 
 
 def disable_check_button(driver, massage):
@@ -290,7 +342,8 @@ def wait_for_user_to_make_decision(driver):
                     disable_button(driver, check_button_massage="請完成建立程序")
                     face_train_process(driver)
                 else:
-                    book_borrow_process(driver)
+                    stu_id = current_student_id(driver)
+                    book_borrow_process(stu_id)
             elif button_name == 'clear_button':
                 clear_result(driver)
                 disable_button(driver)
@@ -309,15 +362,16 @@ def menu_session(driver):
 
     except TimeoutException:
         menu_session(driver)
-    except (NoSuchWindowException, WebDriverException):
+    except (NoSuchWindowException, WebDriverException) as e:
+        print(e)
         exit()
 
 
 def main():
     driver = create_web_driver()
 
-    #driver.get(LOGIN_URL)
-    #login_session(driver)
+    driver.get(LOGIN_URL)
+    login_session(driver)
 
     driver.get(MENU_URL)
     menu_session(driver)
