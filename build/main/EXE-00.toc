@@ -2,7 +2,7 @@
  False,
  False,
  True,
- 'e:\\lee\\library_face\\library_face_reco\\venv\\lib\\site-packages\\PyInstaller\\bootloader\\images\\icon-windowed.ico',
+ 'icon.ico',
  None,
  False,
  False,
@@ -50,7 +50,7 @@
  [],
  False,
  False,
- 1641838867,
+ 1641840072,
  [('runw.exe',
    'e:\\lee\\library_face\\library_face_reco\\venv\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit\\runw.exe',
    'EXECUTABLE')])
