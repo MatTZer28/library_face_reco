@@ -3,7 +3,7 @@ import pandas as pd
 import pickle_data
 import calculate
 from capture import face_frame
-from head_pose import head_pose_not_correct
+from head_pose import recognize_head_pose_not_correct
 
 
 def face_recognized(driver, data: pickle_data.Data, threshold):
@@ -13,7 +13,7 @@ def face_recognized(driver, data: pickle_data.Data, threshold):
 
     show_face_detected_message(driver)
 
-    while head_pose_not_correct(face):  # 頭沒有擺正
+    while recognize_head_pose_not_correct(face):  # 頭沒有擺正
         fail_count = fail_count + 1
         if fail_count == 5:
             show_head_pose_not_correct_message(driver)

@@ -370,8 +370,8 @@ def menu_session(driver):
 def main():
     driver = create_web_driver()
 
-    driver.get(LOGIN_URL)
-    login_session(driver)
+    # driver.get(LOGIN_URL)
+    # login_session(driver)
 
     driver.get(MENU_URL)
     menu_session(driver)

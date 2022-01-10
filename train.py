@@ -1,7 +1,7 @@
 import calculate
 import pickle_data
 from capture import face_frame
-from head_pose import head_pose_not_correct
+from head_pose import train_head_pose_not_correct
 
 
 def train_face(driver, data: pickle_data.Data):
@@ -11,7 +11,7 @@ def train_face(driver, data: pickle_data.Data):
 
     show_face_detected_message(driver)
 
-    while head_pose_not_correct(face):  # 頭沒有擺正
+    while train_head_pose_not_correct(face):  # 頭沒有擺正
         fail_count = fail_count + 1
         if fail_count == 5:
             show_head_pose_not_correct_message(driver)

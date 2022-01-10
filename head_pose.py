@@ -7,13 +7,24 @@ import dlib
 import numpy as np
 
 
-def head_pose_not_correct(face_frame):
+def train_head_pose_not_correct(face_frame):
 
     pitch, yaw, roll = detect_head_pose(face_frame)
 
     if (165 <= pitch <= 179) or (-179 <= pitch <= -165):
         if -10 <= yaw <= 10:
             if -10 <= roll <= 10:
+                return False
+    return True
+
+
+def recognize_head_pose_not_correct(face_frame):
+
+    pitch, yaw, roll = detect_head_pose(face_frame)
+
+    if (160 <= pitch <= 179) or (-179 <= pitch <= -160):
+        if -20 <= yaw <= 20:
+            if -20 <= roll <= 20:
                 return False
     return True
 
