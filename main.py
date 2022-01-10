@@ -363,7 +363,6 @@ def menu_session(driver):
     except TimeoutException:
         menu_session(driver)
     except (NoSuchWindowException, WebDriverException) as e:
-        print(e)
         exit()
 
 

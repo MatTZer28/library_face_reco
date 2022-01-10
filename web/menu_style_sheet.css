@@ -160,7 +160,7 @@ button.check_button {
     color: rgb(220, 220, 220);
 }
 
-button.check_button:hover {
+button.check_button:hover:enabled {
     background-color: rgb(0, 163, 8);
     cursor: pointer;
     color: white;
@@ -192,7 +192,7 @@ button.clear_button {
     color: rgb(220, 220, 220);
 }
 
-button.clear_button:hover {
+button.clear_button:hover:enabled {
     background-color: rgb(182, 47, 47);
     cursor: pointer;
     color: rgb(220, 220, 220);

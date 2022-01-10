@@ -50,7 +50,7 @@
  [],
  False,
  False,
- 1641840072,
+ 1641842624,
  [('runw.exe',
    'e:\\lee\\library_face\\library_face_reco\\venv\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit\\runw.exe',
    'EXECUTABLE')])
