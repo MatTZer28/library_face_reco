@@ -14,23 +14,22 @@ const createCanvas = (id, width, height) => {
     canvas.width = width;
     canvas.height = height;
     canvas.style.borderRadius = "10px";
-    canvas.style.borderStyle = "inset"
     return canvas;
 };
 
 const constraints = {
     audio: false,
     video: {
-      facingMode: "user"
+        facingMode: "user"
     }
 };
 
 const getCameraStream = video => {
     navigator.mediaDevices
-      .getUserMedia(constraints)
-      .then(function success(stream) {
-        video.srcObject = stream;
-      });
+        .getUserMedia(constraints)
+        .then(function success(stream) {
+            video.srcObject = stream;
+        });
 };
 
 const getFrameFromVideo = (video, canvas) => {
@@ -44,7 +43,7 @@ const getFrameFromVideo = (video, canvas) => {
     requestAnimationFrame(() => getFrameFromVideo(video, canvas));
 };
 
-const init = () => {
+const showCamera = () => {
     const detectSightContainer = document.getElementById("detection_sight_container");
 
     const width = detectSightContainer.clientWidth - 1 - 50;
@@ -58,5 +57,5 @@ const init = () => {
 
     detectSightContainer.appendChild(canvas);
 };
-  
-document.getElementById("detection_sight_container").onload = init();
+
+document.getElementById("detection_sight_container").onload = showCamera();

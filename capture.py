@@ -9,12 +9,18 @@ def face_frame(driver):
 
     frame, faces = detect_faces(driver)
 
+    if is_data_button_clicked(driver):
+        return frame, is_face_gone
+
     while no_faces_detected(faces):  # 沒有偵測到人臉
         show_no_faces_message(driver)
 
         is_face_gone = True
 
         frame, faces = detect_faces(driver)
+
+        if is_data_button_clicked(driver):
+            return frame, is_face_gone
 
     largest_face = pick_largest_face(faces)
 
@@ -29,6 +35,13 @@ def detect_faces(driver):
     frame = webcam.read_frame(driver)
     faces_coordinate = DETECTOR(frame, 0)
     return frame, faces_coordinate
+
+
+def is_data_button_clicked(driver):
+    if driver.current_window_handle == driver.window_handles[0]:
+        return driver.execute_script('return tableShowed;')
+    else:
+        return False
 
 
 def no_faces_detected(faces):

@@ -11,6 +11,9 @@ def face_recognized(driver, data: pickle_data.Data, threshold):
 
     face, is_face_gone = face_frame(driver)
 
+    if is_data_button_clicked(driver):
+        return pd.DataFrame()
+
     show_face_detected_message(driver)
 
     while recognize_head_pose_not_correct(face):  # 頭沒有擺正
@@ -24,12 +27,15 @@ def face_recognized(driver, data: pickle_data.Data, threshold):
             fail_count = 0
             show_face_detected_message(driver)
 
+        if is_data_button_clicked(driver):
+            return pd.DataFrame()
+
     show_recognizing_message(driver)
 
     recog_face = [face]
 
     if not data.content.empty:
-        for i in data.content.index:
+        for i in range(data.content.index.start, data.content.index.stop, data.content.index.step):
             data_feature = data.content['feature'][i]
             curr_feature = calculate.features_mean(recog_face)
 
@@ -37,10 +43,16 @@ def face_recognized(driver, data: pickle_data.Data, threshold):
 
             if euclidean_distance < 1 - float(threshold / 100):
                 return data.content.iloc[[i]]
-            else:
-                return pd.DataFrame()
+        return pd.DataFrame()
     else:
         return pd.DataFrame()
+
+
+def is_data_button_clicked(driver):
+    if driver.current_window_handle == driver.window_handles[0]:
+        return driver.execute_script('return tableShowed;')
+    else:
+        return False
 
 
 def show_face_detected_message(driver):

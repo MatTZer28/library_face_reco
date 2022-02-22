@@ -5,9 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="menu_style_sheet.css">
-    <script src="camera.js" defer></script>
-    <script src="check_button_click.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="menu_style_sheet.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap.min.css">
+    <script type="text/javascript" src="camera.js" defer></script>
+    <script type="text/javascript" src="script.js" defer></script>
+    <script type="text/javascript" src="table_lang.js" defer></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap.min.js"></script>
     <title>精忠國小人臉辨識圖書借閱系統</title>
 </head>
 
@@ -21,26 +27,30 @@
                         <img src="src\pic\user.png" alt="學生照片" id="student_face">
                     </div>
                     <div class="student_info_container">
-                        <span class="student_label">姓名</span>
+                        <span class="student_label">姓名
+                                    <img src="src\pic\copy.png" alt="複製" class="student_info_copy" onclick="studentNameInputOnClick()" title="複製姓名">
+                                </span>
                         <input type="text" class="student_info" name="student_name" value="" disabled>
-                        <span class="student_label">證號</span>
+                        <span class="student_label">證號
+                                    <img src="src\pic\copy.png" alt="複製" class="student_info_copy" onclick="studentIdInputOnClick()" title="複製證號">
+                                </span>
                         <input type="text" class="student_info" name="student_id" value="" disabled>
                     </div>
                 </div>
                 <div class="progress_indicator">辨識系統準備中</div>
                 <div class="info_button_container">
-                        <button type="button" class="check_button" onclick="check_button_clicked()" disabled>請完成辨識程序</button>
-                        <button type="button" class="clear_button" onclick="clear_button_clicked()" disabled>清除</button>
+                    <button type="submit" class="check_button" onclick="check_button_clicked()" disabled>請完成辨識程序</button>
+                    <button type="button" class="clear_button" onclick="clear_button_clicked()" disabled>清除</button>
                 </div>
             </div>
             <div class="setting">
-                <img src="src\pic\database.png" alt="資料庫管理" class="icon_button">
-                <a href="https://one.cy.edu.tw/web-module_list/rest/service/main#" target="_blank" class="icon_ref"><img src="src\pic\book.png" alt="圖書館網站" class="icon_button"></a>
+                <img id="data_button" src="src\pic\database.png" alt="借閱資料庫" class="icon_button" onclick="data_button_clicked()" title="辨識資料庫檢索">
+                <a href="https://one.cy.edu.tw/web-module_list/rest/service/main#" target="_blank" class="icon_ref"><img src="src\pic\book.png" alt="圖書館網站" class="icon_button" title="圖書館網站"></a>
             </div>
         </div>
     </div>
     <div class="footer_info">
-        <a href="https://www.ncyu.edu.tw/mis/" target="_blank" class="logo_ref"><img class="logo" src="src\pic\NCYU_MIS.gif" alt="NCYU_LOGO" ></a>
+        <a href="https://www.ncyu.edu.tw/mis/" target="_blank" class="logo_ref"><img class="logo" src="src\pic\NCYU_MIS.gif" alt="NCYU_LOGO"></a>
         <a href="https://school.cy.edu.tw/nss/s/gcesweb/index" target="_blank" class="logo_ref"><img class="logo" src="src\pic\GCES_LOGO.png" alt="GCES_LOGO"></a>
         <span id="system_name">精忠國小人臉辨識圖書借閱系統</span>
         <div class="footer_text_container">

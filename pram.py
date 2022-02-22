@@ -6,7 +6,7 @@ LOGIN_URL = 'https://one.cy.edu.tw/web-sso/rest/Redirect/login/page/normal?retur
 
 LOGIN_SUCCESSFUL_URL = 'https://one.cy.edu.tw/web-module_list/rest/service/main'
 
-LIBRARY_URL = 'https://one.cy.edu.tw/web-module_list/rest/service/main#'
+LIBRARY_URL = 'https://one.cy.edu.tw/web-module_list/rest/service/main#!/'
 
 menu_html_path = os.path.abspath('web/menu.html').replace('\\', '/')
 
@@ -24,6 +24,6 @@ RECOGNITION = dlib.face_recognition_model_v1('dlib_model/dlib_face_recognition_r
 
 POINTS_NUM_LANDMARK = 68
 
-DEFAULT_THRESHOLD = 70
+DEFAULT_THRESHOLD = 60
 
 IMAGE_CACHE_PATH = 'web/cache/'
