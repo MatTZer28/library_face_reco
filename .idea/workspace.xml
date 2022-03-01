@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="95e50786-772a-43f7-b9fc-acab30b21ffe" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/chrome-user-data/CrashpadMetrics-active.pma" beforeDir="false" afterPath="$PROJECT_DIR$/data/chrome-user-data/CrashpadMetrics-active.pma" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/chrome-user-data/Default/Cache/Cache_Data/data_0" beforeDir="false" afterPath="$PROJECT_DIR$/data/chrome-user-data/Default/Cache/Cache_Data/data_0" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/chrome-user-data/Default/Cache/Cache_Data/data_1" beforeDir="false" afterPath="$PROJECT_DIR$/data/chrome-user-data/Default/Cache/Cache_Data/data_1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/chrome-user-data/Default/Cache/Cache_Data/data_2" beforeDir="false" afterPath="$PROJECT_DIR$/data/chrome-user-data/Default/Cache/Cache_Data/data_2" afterDir="false" />
@@ -30,7 +29,6 @@
       <change beforePath="$PROJECT_DIR$/data/chrome-user-data/Default/GPUCache/data_1" beforeDir="false" afterPath="$PROJECT_DIR$/data/chrome-user-data/Default/GPUCache/data_1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/chrome-user-data/Default/GPUCache/index" beforeDir="false" afterPath="$PROJECT_DIR$/data/chrome-user-data/Default/GPUCache/index" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/chrome-user-data/Default/History" beforeDir="false" afterPath="$PROJECT_DIR$/data/chrome-user-data/Default/History" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/chrome-user-data/Default/History-journal" beforeDir="false" afterPath="$PROJECT_DIR$/data/chrome-user-data/Default/History-journal" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/chrome-user-data/Default/Local Storage/leveldb/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/data/chrome-user-data/Default/Local Storage/leveldb/LOG" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/chrome-user-data/Default/Local Storage/leveldb/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/data/chrome-user-data/Default/Local Storage/leveldb/LOG.old" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/chrome-user-data/Default/Login Data" beforeDir="false" afterPath="$PROJECT_DIR$/data/chrome-user-data/Default/Login Data" afterDir="false" />
@@ -73,7 +71,7 @@
       <change beforePath="$PROJECT_DIR$/data/chrome-user-data/ShaderCache/GPUCache/data_1" beforeDir="false" afterPath="$PROJECT_DIR$/data/chrome-user-data/ShaderCache/GPUCache/data_1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/chrome-user-data/ShaderCache/GPUCache/index" beforeDir="false" afterPath="$PROJECT_DIR$/data/chrome-user-data/ShaderCache/GPUCache/index" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/chrome-user-data/chrome_debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/data/chrome-user-data/chrome_debug.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/chrome-user-data/chrome_shutdown_ms.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/chrome-user-data/chrome_shutdown_ms.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/chrome-user-data/chrome_shutdown_ms.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/student_info.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/data/student_info.pkl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pickle_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/pickle_data.py" afterDir="false" />
