@@ -1,6 +1,7 @@
 import pickle_data
 import random
 import string
+import sys
 import os
 import time
 
@@ -19,6 +20,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 threshold = DEFAULT_THRESHOLD
+
+sys.tracebacklimit = 0
 
 data = pickle_data.Data()
 
@@ -41,7 +44,11 @@ def driver_options(detach):
     options.add_experimental_option("excludeSwitches", ['enable-automation'])
     # 不顯示上方'Chrome正受到自動測試軟體控制'提示
 
-    prefs = {"credentials_enable_service": False, "profile.password_manager_enabled": False}
+    root_path = os.path.abspath("./")
+    options.add_argument(f"--user-data-dir={root_path}\\data\\chrome-user-data")
+    options.add_argument(f"--profile-directory=Default")
+
+    prefs = {"credentials_enable_service": True, "profile.password_manager_enabled": True}
     options.add_experimental_option("prefs", prefs)
     # 關閉Chrome詢問是否儲存密碼選項
 
@@ -370,7 +377,7 @@ def show_book_has_lent_message(driver):
                           'progressIndicator.style.animation = "none";')
 
 
-def book_borrow_process(driver, wait,  stu_id):
+def book_borrow_process(driver, wait, stu_id):
     disable_button(driver, check_button_massage="請完成借閱程序")
     disable_data_button(driver)
     show_book_lending_message(driver)

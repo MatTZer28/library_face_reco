@@ -1,0 +1,7 @@
+[11636:4172:0301/110352.689:ERROR:profile_manager.cc(888)] Cannot create profile at path E:\Lee\library_face\library_face_reco\data\chrome-user-data\Default\E:\Lee\library_face\library_face_reco\data\chrome-user-data\Default
+[11636:4172:0301/110352.689:ERROR:profile_manager.cc(1801)] Cannot create profile at path E:\Lee\library_face\library_face_reco\data\chrome-user-data\Default\E:\Lee\library_face\library_face_reco\data\chrome-user-data\Default
+[11636:12748:0301/110354.909:ERROR:chrome_browser_main_extra_parts_metrics.cc(227)] START: ReportBluetoothAvailability(). If you don't see the END: message, this is crbug.com/1216328.
+[11636:12748:0301/110354.909:ERROR:chrome_browser_main_extra_parts_metrics.cc(230)] END: ReportBluetoothAvailability()
+[11636:12748:0301/110355.045:ERROR:chrome_browser_main_extra_parts_metrics.cc(235)] START: GetDefaultBrowser(). If you don't see the END: message, this is crbug.com/1216328.
+[11636:12748:0301/110355.045:ERROR:chrome_browser_main_extra_parts_metrics.cc(239)] END: GetDefaultBrowser()
+[11636:4172:0301/110356.496:WARNING:pref_notifier_impl.cc(40)] Pref observer for media_router.cast_allow_all_ips found at shutdown.

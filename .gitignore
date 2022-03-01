@@ -3,7 +3,5 @@
 data/cookie.pkl
 data/student_info.pkl
 web/cache/stu_img.png
-data/student_info.pkl
-data/student_info.pkl
-data/student_info.pkl
-data/student_info.pkl
+dist/
+build/
