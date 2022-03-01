@@ -1,5 +1,0 @@
-('c:\\users\\mattzer\\appdata\\local\\programs\\python\\python310\\lib\\site-packages\\dlib-19.23.0-py3.10-win-amd64.egg',
- None,
- {'*.pyw', '*.pyd', '*.pyc', '*.py', '*.cp310-win_amd64.pyd', 'EGG-INFO'},
- 'DATA',
- [])
