@@ -10,6 +10,7 @@ from recognize import face_recognized
 from train import train_face
 
 import cv2
+import keyboard
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException, NoSuchWindowException, WebDriverException
 from selenium.webdriver.chrome.service import Service
@@ -19,15 +20,15 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
-threshold = DEFAULT_THRESHOLD
-
 sys.tracebacklimit = 0
+
+threshold = DEFAULT_THRESHOLD
 
 data = pickle_data.Data()
 
-is_data_showed = False
-
 table_selected_id = ''
+
+is_data_showed = False
 
 original_window = None
 
@@ -81,7 +82,7 @@ def login_session(driver):
     except TimeoutException:
         login_session(driver)
     except (NoSuchWindowException, WebDriverException):
-        exit()
+        driver.quit()
 
 
 def wait_until_page_loaded(wait, url):
@@ -384,15 +385,17 @@ def book_borrow_process(driver, wait, stu_id):
 
     driver.switch_to.window(library_window)
 
-    element = wait.until(ec.presence_of_element_located((By.ID, "card_no")))
-    element.send_keys(stu_id)
-    element.send_keys(Keys.RETURN)
+    card_no_element = wait.until(ec.presence_of_element_located((By.ID, "card_no")))
+    card_no_element.send_keys(stu_id)
+    card_no_element.send_keys(Keys.RETURN)
 
-    element = wait.until(ec.presence_of_element_located((By.ID, "no_book")))
+    no_book_element = wait.until(ec.presence_of_element_located((By.ID, "no_book")))
+
+    no_book_element.click()
 
     while True:
-        if element.get_attribute("value") == "AAAAAA":
-            driver.execute_script("arguments[0].value='';", element)
+        if card_no_element == driver.switch_to.active_element or keyboard.is_pressed("space"):
+            driver.execute_script("arguments[0].value='';", no_book_element)
             driver.switch_to.window(original_window)
             enable_button(driver, has_match=True)
             enable_data_button(driver)
@@ -495,7 +498,7 @@ def menu_session(driver):
     except TimeoutException:
         menu_session(driver)
     except (NoSuchWindowException, WebDriverException):
-        exit()
+        driver.quit()
 
 
 def main():

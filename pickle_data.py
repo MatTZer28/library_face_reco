@@ -44,5 +44,5 @@ class Data:
 
     def remove_member_by_id(self, stu_id):
         self.content = self.content.drop(self.content.index[self.content['id'] == stu_id])
-        self.content.reset_index()
+        self.content = self.content.reset_index(drop=True)
         save_pickle_data(self.content, DATA_PATH)
