@@ -5,3 +5,4 @@ data/student_info.pkl
 web/cache/stu_img.png
 dist/
 build/
+__pycache__/main.cpython-38.pyc

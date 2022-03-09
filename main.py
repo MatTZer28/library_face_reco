@@ -20,7 +20,14 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
-sys.tracebacklimit = 0
+
+# class DevNull:
+#    def write(self, msg):
+#        pass
+
+
+# sys.stderr = DevNull()
+# sys.tracebacklimit = 0
 
 threshold = DEFAULT_THRESHOLD
 
@@ -46,8 +53,8 @@ def driver_options(detach):
     # 不顯示上方'Chrome正受到自動測試軟體控制'提示
 
     root_path = os.path.abspath("./")
-    options.add_argument(f"--user-data-dir={root_path}\\data\\chrome-user-data")
-    options.add_argument(f"--profile-directory=Default")
+    options.add_argument(f'--user-data-dir={root_path}\\data\\chrome-user-data')
+    options.add_argument(f'--profile-directory=Default')
 
     prefs = {"credentials_enable_service": True, "profile.password_manager_enabled": True}
     options.add_experimental_option("prefs", prefs)
@@ -82,7 +89,7 @@ def login_session(driver):
     except TimeoutException:
         login_session(driver)
     except (NoSuchWindowException, WebDriverException):
-        driver.quit()
+        sys.exit()
 
 
 def wait_until_page_loaded(wait, url):
@@ -498,7 +505,7 @@ def menu_session(driver):
     except TimeoutException:
         menu_session(driver)
     except (NoSuchWindowException, WebDriverException):
-        driver.quit()
+        sys.exit()
 
 
 def main():
