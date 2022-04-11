@@ -95,15 +95,17 @@ function enhaceTable() {
 
 function tableAddOnClickListener() {
     $('#data_table tbody').on('click', 'tr', function() {
-        if ($(this).hasClass('selected')) {
-            $(this).removeClass('selected');
-            $('input[name="student_name"]').val("");
-            $('input[name="student_id"]').val("");
-        } else {
-            $('#data_table').DataTable().$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-            $('input[name="student_name"]').val($('#data_table').DataTable().row(this).data()[0]);
-            $('input[name="student_id"]').val($('#data_table').DataTable().row(this).data()[1]);
+        if ($(this)[0].innerText !== '目前沒有資料') {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+                $('input[name="student_name"]').val("");
+                $('input[name="student_id"]').val("");
+            } else {
+                $('#data_table').DataTable().$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+                $('input[name="student_name"]').val($('#data_table').DataTable().row(this).data()[0]);
+                $('input[name="student_id"]').val($('#data_table').DataTable().row(this).data()[1]);
+            }
         }
     });
 }

@@ -1,9 +1,9 @@
-import pandas as pd
-
 import pickle_data
 import calculate
 from capture import face_frame
 from head_pose import recognize_head_pose_not_correct
+
+import pandas as pd
 
 
 def face_recognized(driver, data: pickle_data.Data, threshold):
@@ -35,14 +35,18 @@ def face_recognized(driver, data: pickle_data.Data, threshold):
     recog_face = [face]
 
     if not data.content.empty:
+        curr_feature = calculate.features_mean(recog_face)
+        euclidean_distances = []
+
         for i in range(data.content.index.start, data.content.index.stop, data.content.index.step):
             data_feature = data.content['feature'][i]
-            curr_feature = calculate.features_mean(recog_face)
-
             euclidean_distance = calculate.euclidean_distance(data_feature, curr_feature)
+            euclidean_distances.append(euclidean_distance)
 
-            if euclidean_distance < 1 - float(threshold / 100):
-                return data.content.iloc[[i]]
+        if len(euclidean_distances) > 0:
+            lowest_euclidean_distance = min(euclidean_distances)
+            if lowest_euclidean_distance < 1 - float(threshold / 100):
+                return data.content.iloc[[euclidean_distances.index(lowest_euclidean_distance)]]
         return pd.DataFrame()
     else:
         return pd.DataFrame()

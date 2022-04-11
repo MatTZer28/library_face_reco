@@ -25,5 +25,5 @@ def features_128d(frame):
 
 
 def euclidean_distance(feature_1, feature_2):
-    dist = np.sqrt(np.sum(np.square(feature_1 - feature_2)))
+    dist = np.sqrt(np.sum(np.square(np.subtract(feature_1, feature_2))))
     return dist

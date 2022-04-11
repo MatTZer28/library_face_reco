@@ -24,6 +24,6 @@ RECOGNITION = dlib.face_recognition_model_v1('dlib_model/dlib_face_recognition_r
 
 POINTS_NUM_LANDMARK = 68
 
-DEFAULT_THRESHOLD = 60
+DEFAULT_THRESHOLD = 65
 
 IMAGE_CACHE_PATH = 'web/cache/'
